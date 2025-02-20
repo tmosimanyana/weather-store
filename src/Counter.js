@@ -1,4 +1,4 @@
-import { createElement } from './utils';
+import { createElement } from '../utils/createElement';
 
 function Counter(productId) {
   const storageKey = `product-${productId}-count`;
