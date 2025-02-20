@@ -1,17 +1,19 @@
 import { createElement } from './utils';
 
-function Counter() {
-  function updateCount(element, count) {
-    element.textContent = count;
-  }
+function Counter(productId) {
+  const storageKey = `product-${productId}-count`;
+  let count = parseInt(localStorage.getItem(storageKey)) || 0;
 
-  let count = 0;
+  function updateCount(value) {
+    count = value;
+    label.textContent = count;
+    localStorage.setItem(storageKey, count);
+  }
 
   const label = createElement('label', {
     className: 'counter-label',
     textContent: count,
   });
-  const labelContainer = createElement('div', {}, [label]);
 
   const incButton = createElement('button', {
     className: 'counter-button',
@@ -22,17 +24,14 @@ function Counter() {
     textContent: '-',
   });
 
-  incButton.addEventListener('click', () => updateCount(label, ++count));
-  decButton.addEventListener('click', () => updateCount(label, --count));
-
-  const footer = createElement('footer', { className: 'counter-footer' }, [
-    incButton,
-    decButton,
-  ]);
+  incButton.addEventListener('click', () => updateCount(count + 1));
+  decButton.addEventListener('click', () => {
+    if (count > 0) updateCount(count - 1);
+  });
 
   return createElement('div', { className: 'counter' }, [
-    labelContainer,
-    footer,
+    label,
+    createElement('div', { className: 'counter-controls' }, [incButton, decButton]),
   ]);
 }
 
