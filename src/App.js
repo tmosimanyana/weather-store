@@ -1,29 +1,55 @@
-import { createElement } from './utils';
-import { initRouter } from './router';
+import { createElement } from './utils.js';
+import { initRouter } from './router.js';
 
 function Header(mainDiv) {
   const appTitle = createElement('h1', {
-    textContent: 'My Cool Project',
+    textContent: 'Weather-Based E-Commerce Store',
     className: 'heading',
   });
 
-  // nav items
-  const page1 = createElement('a', {
-    href: '/#/page1',
-    textContent: 'Page 1',
+  // Navigation links for product categories
+  const sunnyPage = createElement('a', {
+    href: '/#/sunny',
+    textContent: '☀️ Sunny Weather',
   });
-  const page2 = createElement('a', {
-    href: '/#/page2',
-    textContent: 'Page 2',
+  const rainyPage = createElement('a', {
+    href: '/#/rainy',
+    textContent: '🌧️ Rainy Weather',
   });
-  const page3 = createElement('a', {
-    href: '/#/page3',
-    textContent: 'Page 3',
+  const coldPage = createElement('a', {
+    href: '/#/cold',
+    textContent: '❄️ Cold Weather',
   });
 
-  const nav = createElement('nav', {}, [page1, page2, page3]);
+  const nav = createElement('nav', {}, [sunnyPage, rainyPage, coldPage]);
 
   return createElement('header', {}, [appTitle, nav]);
+}
+
+function WeatherSection() {
+  const weatherInfo = createElement('div', { className: 'weather-info' });
+
+  // Fetch weather data (example using OpenWeather API)
+  async function fetchWeather() {
+    try {
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=London&appid=77e5a79936953b1c6c49744abfa37515_KEY&units=metric`
+      );
+      const data = await response.json();
+
+      weatherInfo.innerHTML = `
+        <h3>Current Weather in ${data.name}</h3>
+        <p>Temperature: ${data.main.temp}°C</p>
+        <p>Condition: ${data.weather[0].description}</p>
+      `;
+    } catch (error) {
+      weatherInfo.textContent = 'Failed to load weather data.';
+    }
+  }
+
+  fetchWeather();
+
+  return weatherInfo;
 }
 
 function Footer() {
@@ -39,7 +65,7 @@ function App() {
 
   initRouter(main);
 
-  return createElement('div', {}, [Header(main), main, Footer()]);
+  return createElement('div', {}, [Header(main), WeatherSection(), main, Footer()]);
 }
 
 export default App;
