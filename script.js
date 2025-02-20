@@ -2,8 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const weatherDisplay = document.getElementById("weather");
     const productList = document.getElementById("product-list");
 
-    // Example Weather API Call (Replace with OpenWeather API)
-    fetch("https://api.openweathermap.org/data/2.5/weather?q=London&appid=YOUR_API_KEY&units=metric")
+    // Example Weather API Call (Replaced with OpenWeather API)
+    fetch("https://api.openweathermap.org/data/2.5/weather?q=London&appid=77e5a79936953b1c6c49744abfa37515&units=metric")
         .then(response => response.json())
         .then(data => {
             const temp = data.main.temp;
