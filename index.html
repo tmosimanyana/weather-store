@@ -4,8 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Weather-Based E-Commerce Store - Buy products based on weather conditions." />
-    
-    <title>Weather-Based E-Commerce Store</title> 
+    <title>Weather-Based E-Commerce Store</title>
 
     <!-- CSS File -->
     <link rel="stylesheet" href="css/main.css" />
@@ -19,7 +18,26 @@
     </header>
 
     <!-- Root div for the JavaScript app -->
-    <div id="root"></div>
+    <main>
+      <section id="weather">
+        <h2>Current Weather</h2>
+        <div id="weather-info">
+          <!-- Weather data will be injected here -->
+        </div>
+      </section>
+
+      <section id="products">
+        <h2>Recommended Products</h2>
+        <div id="product-list">
+          <!-- Product recommendations will be displayed here -->
+        </div>
+      </section>
+
+      <section id="payment">
+        <h2>Checkout</h2>
+        <div id="paypal-button-container"></div>
+      </section>
+    </main>
 
     <!-- JavaScript File -->
     <script type="module" src="src/index.js"></script>
